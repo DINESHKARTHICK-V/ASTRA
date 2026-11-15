@@ -1,0 +1,4 @@
+# backend/
+# FastAPI application — Phase 2+
+# Will expose REST endpoints for predictions, candidate metadata, and FITS processing.
+# Dependencies: fastapi, uvicorn, psycopg2-binary, sqlalchemy

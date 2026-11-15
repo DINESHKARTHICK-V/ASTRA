@@ -1,0 +1,46 @@
+# Ignore everything in the main folder...
+/*
+
+# ...except these
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/requirements.txt
+!/docker-compose.yml
+!/backend/
+!/frontend/
+!/ml/
+!/audit_project.py
+!/inspect_vegas.py
+!/integrate_vegas.py
+!/read_fits.py
+
+# Inside the allowed folders, still skip junk
+node_modules/
+__pycache__/
+*.pyc
+venv/
+.venv/
+.pytest_cache/
+.expo/
+dist/
+build/
+mlruns/
+/backend/data/
+
+# Secrets
+.env
+.env.local
+
+# Data, models and documents
+*.db
+*.db-journal
+*.sqlite
+*.csv
+*.fits
+*.fits.txt
+*.pkl
+*.joblib
+*.h5
+*.pdf
+*.docx

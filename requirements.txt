@@ -1,0 +1,42 @@
+# ASTRA Cloud — Phase 1 Dependencies
+# Scientific ML stack only. Backend (FastAPI) and frontend (React) deps added in later phases.
+
+# ── Data handling ────────────────────────────────────────────────────────────
+pandas==2.2.2
+numpy==1.26.4
+
+# ── Machine learning ─────────────────────────────────────────────────────────
+scikit-learn==1.5.0
+xgboost==2.0.3
+
+# ── Explainability ───────────────────────────────────────────────────────────
+shap==0.45.1
+
+# ── Visualization ─────────────────────────────────────────────────────────────
+matplotlib==3.9.0
+seaborn==0.13.2
+
+# ── Model persistence ─────────────────────────────────────────────────────────
+joblib==1.4.2
+
+# ── Environment / config ──────────────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest==8.2.1
+
+# ── Jupyter (for EDA notebooks) ───────────────────────────────────────────────
+jupyter==1.0.0
+ipykernel==6.29.4
+
+# ── Phase 2+ (Active Backend & Research Stack) ────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+psycopg2-binary>=2.9.9
+sqlalchemy>=2.0.0
+astropy>=6.1.0
+pyarrow>=25.0.0
+
+# ── Knowledge Graph & Experiment Tracking ──────────────────────
+neo4j>=6.4.0
+mlflow>=3.17.0

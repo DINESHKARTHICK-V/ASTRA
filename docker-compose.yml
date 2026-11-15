@@ -1,0 +1,59 @@
+# ============================================================
+#  ASTRA Cloud — Services Docker Compose
+#  File   : docker-compose.yml
+#  Purpose: Optional containerized infrastructure for Neo4j Knowledge
+#           Graph and MLflow Tracking Server. Does not disrupt PostgreSQL.
+# ============================================================
+
+version: '3.8'
+
+services:
+  # ── Neo4j Astronomy Knowledge Graph ──────────────────────────
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: astra_neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"   # HTTP Browser UI (http://localhost:7474)
+      - "7687:7687"   # Bolt Protocol
+    environment:
+      - NEO4J_AUTH=neo4j/astrapwd123
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_memory_pagecache_size=512M
+      - NEO4J_dbms_memory_heap_initial__size=512M
+      - NEO4J_dbms_memory_heap_max__size=1G
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── MLflow Experiment Tracking Server ────────────────────────
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.17.2
+    container_name: astra_mlflow
+    restart: unless-stopped
+    ports:
+      - "5000:5000"   # MLflow Web Dashboard (http://localhost:5000)
+    environment:
+      - MLFLOW_ALLOW_FILE_STORE=true
+      - MLFLOW_DISABLE_AGENT_HINT=1
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+      --host 0.0.0.0
+      --port 5000
+    volumes:
+      - mlflow_data:/mlflow
+
+volumes:
+  neo4j_data:
+    driver: local
+  neo4j_logs:
+    driver: local
+  mlflow_data:
+    driver: local
